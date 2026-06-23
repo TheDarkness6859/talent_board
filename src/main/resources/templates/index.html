@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<section>
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Welcome to Talent Board</h1>
+        <p class="lead text-muted">Your comprehensive recruitment management platform</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <h3 class="card-title">Find Jobs</h3>
+                    <p class="card-text">Browse through available vacancies and find your dream job.</p>
+                    <a th:href="@{/vacancies}" class="btn btn-primary">View Vacancies</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <h3 class="card-title">Apply Online</h3>
+                    <p class="card-text">Submit your applications and track your progress easily.</p>
+                    <a th:href="@{/applications/my}" class="btn btn-primary" sec:authorize="isAuthenticated()">My Applications</a>
+                    <a th:href="@{/login}" class="btn btn-primary" sec:authorize="!isAuthenticated()">Login to Apply</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <h3 class="card-title">Manage Recruitment</h3>
+                    <p class="card-text">Post vacancies, review applications, and schedule interviews.</p>
+                    <a th:href="@{/vacancies/create}" class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN', 'RECRUITER')">Create Vacancy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            <h2 class="mb-4">Quick Stats</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Active Vacancies</h3>
+                            <p class="card-text display-4">--</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Total Applications</h3>
+                            <p class="card-text display-4">--</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h3 class="card-title">Scheduled Interviews</h3>
+                            <p class="card-text display-4">--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

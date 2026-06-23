@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Interview Details</title>
+</head>
+<body>
+<section>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Interview Details</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h5 class="fw-bold">Date & Time</h5>
+                        <p class="fs-5" th:text="${#temporals.format(interview.interviewDate, 'yyyy-MM-dd HH:mm')}"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="fw-bold">Interview Type</h5>
+                        <span class="badge bg-info" th:text="${interview.type}"></span>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="fw-bold">Interviewer</h5>
+                        <p th:text="${interview.interviewer.fullName}"></p>
+                        <p class="text-muted" th:text="${interview.interviewer.email}"></p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="fw-bold">Result</h5>
+                        <span class="badge fs-6" 
+                              th:class="${interview.result == 'PENDING' ? 'bg-warning' : (interview.result == 'PASSED' ? 'bg-success' : 'bg-danger')}"
+                              th:text="${interview.result}"></span>
+                    </div>
+                    <div class="mb-3" th:if="${interview.notes}">
+                        <h5 class="fw-bold">Notes</h5>
+                        <p th:text="${interview.notes}"></p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a th:href="@{/interviews/{id}/update-result(id=${interview.id})}" class="btn btn-warning" sec:authorize="hasAnyRole('ADMIN', 'RECRUITER')">Update Result</a>
+                    <a th:href="@{/interviews/my}" class="btn btn-secondary">Back to My Interviews</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

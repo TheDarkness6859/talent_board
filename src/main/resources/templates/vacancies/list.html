@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Vacancies</title>
+</head>
+<body>
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Vacancies</h1>
+        <a th:href="@{/vacancies/create}" class="btn btn-primary" sec:authorize="hasAnyRole('ADMIN', 'RECRUITER')">Create Vacancy</a>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <a th:href="@{/vacancies/active}" class="btn btn-outline-primary">Show Active Only</a>
+            <a th:href="@{/vacancies}" class="btn btn-outline-secondary">Show All</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" th:each="vacancy : ${vacancies}">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${vacancy.title}"></h5>
+                    <p class="card-text text-muted small" th:text="${vacancy.category}"></p>
+                    <p class="card-text" th:text="${#strings.abbreviate(vacancy.description, 100)}"></p>
+                    <div class="mb-2">
+                        <span class="badge bg-info" th:text="${vacancy.workModality}"></span>
+                        <span class="status-badge" 
+                              th:class="'status-badge status-' + ${vacancy.status.toString().toLowerCase()}"
+                              th:text="${vacancy.status}"></span>
+                    </div>
+                    <p class="card-text fw-bold" th:text="'$' + ${vacancy.salary}"></p>
+                    <p class="card-text text-muted small">
+                        Posted: <span th:text="${vacancy.creationDate}"></span>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a th:href="@{/vacancies/{id}(id=${vacancy.id})}" class="btn btn-primary w-100">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Interviews</title>
+</head>
+<body>
+<section>
+    <h1 class="mb-4">Interviews</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Date & Time</th>
+                    <th>Type</th>
+                    <th>Interviewer</th>
+                    <th>Result</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="interview : ${interviews}">
+                    <td th:text="${#temporals.format(interview.interviewDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td>
+                        <span class="badge bg-info" th:text="${interview.type}"></span>
+                    </td>
+                    <td th:text="${interview.interviewer.fullName}"></td>
+                    <td>
+                        <span class="badge" 
+                              th:class="${interview.result == 'PENDING' ? 'bg-warning' : (interview.result == 'PASSED' ? 'bg-success' : 'bg-danger')}"
+                              th:text="${interview.result}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{/interviews/{id}(id=${interview.id})}" class="btn btn-sm btn-info">View</a>
+                        <a th:href="@{/interviews/{id}/update-result(id=${interview.id})}" class="btn btn-sm btn-warning" sec:authorize="hasAnyRole('ADMIN', 'RECRUITER')">Update Result</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

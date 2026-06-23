@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Edit Vacancy</title>
+</head>
+<body>
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Edit Vacancy</h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/vacancies/{id}/edit(id=${vacancy.id})}" th:object="${vacancy}" method="post">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" th:field="*{title}" required>
+                            <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" th:field="*{description}" rows="5" required></textarea>
+                            <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <select class="form-select" id="category" th:field="*{category}" required>
+                                    <option value="">Select Category</option>
+                                    <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}"></option>
+                                </select>
+                                <div class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="workModality" class="form-label">Work Modality</label>
+                                <select class="form-select" id="workModality" th:field="*{workModality}" required>
+                                    <option value="">Select Modality</option>
+                                    <option th:each="mod : ${workModalities}" th:value="${mod}" th:text="${mod}"></option>
+                                </select>
+                                <div class="text-danger" th:if="${#fields.hasErrors('workModality')}" th:errors="*{workModality}"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="salary" class="form-label">Salary</label>
+                                <input type="number" class="form-control" id="salary" th:field="*{salary}" step="0.01" min="1.0" required>
+                                <div class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" id="status" th:field="*{status}" required>
+                                    <option th:each="stat : ${statuses}" th:value="${stat}" th:text="${stat}"></option>
+                                </select>
+                                <div class="text-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <a th:href="@{/vacancies/{id}(id=${vacancy.id})}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

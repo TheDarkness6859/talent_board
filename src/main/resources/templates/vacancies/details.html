@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Vacancy Details</title>
+</head>
+<body>
+<section>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0" th:text="${vacancy.title}"></h3>
+                    <div>
+                        <a th:href="@{/vacancies/{id}/edit(id=${vacancy.id})}" class="btn btn-sm btn-warning" sec:authorize="hasAnyRole('ADMIN', 'RECRUITER')">Edit</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <span class="badge bg-info" th:text="${vacancy.category}"></span>
+                        <span class="badge bg-secondary" th:text="${vacancy.workModality}"></span>
+                        <span class="status-badge" 
+                              th:class="'status-badge status-' + ${vacancy.status.toString().toLowerCase()}"
+                              th:text="${vacancy.status}"></span>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="fw-bold">Description</h5>
+                        <p th:text="${vacancy.description}"></p>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h5 class="fw-bold">Salary</h5>
+                            <p class="fs-4 text-primary fw-bold" th:text="'$' + ${vacancy.salary}"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="fw-bold">Posted Date</h5>
+                            <p th:text="${vacancy.creationDate}"></p>
+                        </div>
+                    </div>
+                    <div class="mb-3" th:if="${vacancy.responsibleUser}">
+                        <h5 class="fw-bold">Responsible</h5>
+                        <p th:text="${vacancy.responsibleUser.fullName}"></p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a th:href="@{/applications/vacancy/{vacancyId}/apply(vacancyId=${vacancy.id})}" class="btn btn-primary" sec:authorize="hasRole('CANDIDATE')">Apply Now</a>
+                    <a th:href="@{/vacancies}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

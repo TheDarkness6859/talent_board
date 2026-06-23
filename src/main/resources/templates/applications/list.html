@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Applications</title>
+</head>
+<body>
+<section>
+    <h1 class="mb-4">Applications</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Candidate</th>
+                    <th>Vacancy</th>
+                    <th>Applied Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="application : ${applications}">
+                    <td th:text="${application.candidate.fullName}"></td>
+                    <td th:text="${application.vacancy.title}"></td>
+                    <td th:text="${#temporals.format(application.applicationDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td>
+                        <span class="status-badge" 
+                              th:class="'status-badge status-' + ${application.state.toString().toLowerCase().replace('_', '-')}"
+                              th:text="${application.state}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{/applications/{id}(id=${application.id})}" class="btn btn-sm btn-info">View</a>
+                        <a th:href="@{/applications/{id}/update-status(id=${application.id})}" class="btn btn-sm btn-warning" sec:authorize="hasAnyRole('ADMIN', 'RECRUITER')">Update Status</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>
