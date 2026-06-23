@@ -3,10 +3,7 @@ package com.talentboard.models;
 import com.talentboard.enums.Categories;
 import com.talentboard.enums.Status;
 import com.talentboard.enums.WorkModality;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +32,7 @@ public class Vacancy {
     private WorkModality workModality;
 
     @NotNull(message = "The salary is required")
+    @DecimalMin(value = "1.0", message = "The salary could be more high than zero")
     private double salary;
 
     @FutureOrPresent(message = "The vacant not be in the past")
