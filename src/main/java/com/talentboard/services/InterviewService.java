@@ -109,4 +109,12 @@ public class InterviewService {
                 .orElseThrow(() -> new RuntimeException("Interview not found with ID: " + id));
 
     }
+
+    @Transactional(readOnly = true)
+    public List<Interview> getAll() {
+        return interviewRepository.findAll()
+                .stream()
+                .map(interviewMapper::toDomain)
+                .toList();
+    }
 }

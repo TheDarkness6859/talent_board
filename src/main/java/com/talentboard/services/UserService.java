@@ -96,4 +96,11 @@ public class UserService {
 
     }
 
+    @Transactional(readOnly = true)
+    public User findByEmail(String email) {
+        return repository.findByEmail(email)
+                .map(mapper::toDomain)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
+
 }
