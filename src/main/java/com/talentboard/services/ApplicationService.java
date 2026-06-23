@@ -6,8 +6,6 @@ import com.talentboard.entities.VacancyEntity;
 import com.talentboard.enums.ApplicationState;
 import com.talentboard.enums.Status;
 import com.talentboard.mappers.ApplicationMapper;
-import com.talentboard.mappers.UserMapper;
-import com.talentboard.mappers.VacancyMapper;
 import com.talentboard.models.Application;
 import com.talentboard.repository.ApplicationRepository;
 import com.talentboard.repository.UserRepository;
