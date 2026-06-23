@@ -40,7 +40,7 @@ public class UserController {
         try {
             userService.registerUser(user);
             redirectAttributes.addFlashAttribute("success", "User registered successfully!");
-            return "redirect:/login";
+            return "redirect:/auth/login";
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/users/register";

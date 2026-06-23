@@ -26,7 +26,7 @@
                     <h3 class="card-title">Apply Online</h3>
                     <p class="card-text">Submit your applications and track your progress easily.</p>
                     <a th:href="@{/applications/my}" class="btn btn-primary" sec:authorize="isAuthenticated()">My Applications</a>
-                    <a th:href="@{/login}" class="btn btn-primary" sec:authorize="!isAuthenticated()">Login to Apply</a>
+                    <a th:href="@{/auth/login}" class="btn btn-primary" sec:authorize="!isAuthenticated()">Login to Apply</a>
                 </div>
             </div>
         </div>

@@ -22,8 +22,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
-                                .requestMatchers("/", "/auth/**").permitAll()
+                                .requestMatchers("/", "/auth/**", "/users/register").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/vacancies").authenticated()
+                                .requestMatchers("/applications/**").authenticated()
+                                .requestMatchers("/interviews/**").authenticated()
+                                .requestMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/users/profile").authenticated()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/recruiter/**").hasRole("RECRUITER")
                                 .requestMatchers("/user/**").hasRole("CANDIDATE")
@@ -41,9 +46,9 @@ public class SecurityConfig {
                                     boolean isRecruiter = roles.stream().anyMatch(auth -> Objects.equals(auth.getAuthority(),"ROLE_RECRUITER"));
                                     boolean isCandidate = roles.stream().anyMatch(auth -> Objects.equals(auth.getAuthority(), "ROLE_CANDIDATE"));
 
-                                    if(isAdmin) response.sendRedirect("/admin/dashboard");
-                                    else if (isRecruiter) response.sendRedirect("/recruiter/manage");
-                                    else if (isCandidate) response.sendRedirect("/user/main");
+                                    if(isAdmin) response.sendRedirect("/users");
+                                    else if (isRecruiter) response.sendRedirect("/vacancies");
+                                    else if (isCandidate) response.sendRedirect("/applications/my");
                                     else response.sendRedirect("/");
 
                                 }
