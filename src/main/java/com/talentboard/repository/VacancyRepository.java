@@ -12,9 +12,9 @@ import java.util.UUID;
 
 public interface VacancyRepository extends JpaRepository<VacancyEntity, UUID> {
 
-    List<VacancyEntity> findByState(Status state);
+    List<VacancyEntity> findByStatus(Status state);
 
-    @Query("SELECT v FROM Vacancy v JOIN FETCH v.responsibleUser WHERE v.id = :id")
-    Optional<VacancyEntity> findByIdWithResponsibleUser(@Param("id") Long id);
+    @Query("SELECT v FROM VacancyEntity v JOIN FETCH v.responsibleUser WHERE v.id = :id")
+    Optional<VacancyEntity> findByIdWithResponsibleUser(@Param("id") UUID id);
 
 }

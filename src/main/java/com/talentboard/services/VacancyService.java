@@ -57,7 +57,7 @@ public class VacancyService {
     @Transactional(readOnly = true)
     public List<Vacancy> getActive () {
 
-        return vacancyRepository.findByState(Status.PUBLISHED)
+        return vacancyRepository.findByStatus(Status.PUBLISHED)
                 .stream()
                 .map(vacancyMapper::toDomain)
                 .toList();

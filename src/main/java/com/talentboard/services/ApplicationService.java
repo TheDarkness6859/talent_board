@@ -80,7 +80,7 @@ public class ApplicationService {
         UserEntity foundUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
 
-        boolean applying = appRepository.exitsByCandidateIdAndVacancyId(userId, vacancyId);
+        boolean applying = appRepository.existsByCandidateIdAndVacancyId(userId, vacancyId);
 
         if (applying){
 

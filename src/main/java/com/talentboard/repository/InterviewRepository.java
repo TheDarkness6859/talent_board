@@ -12,7 +12,7 @@ public interface InterviewRepository extends JpaRepository<InterviewEntity, UUID
 
     List<InterviewEntity> findByApplicationId(UUID applicationId);
 
-    @Query("SELECT i FROM Interview i JOIN FETCH i.application a JOIN FETCH a.vacancy WHERE i.interviewer.id = :interviewerId")
+    @Query("SELECT i FROM InterviewEntity i JOIN FETCH i.application a JOIN FETCH a.vacancy WHERE i.interviewer.id = :interviewerId")
     List<InterviewEntity> findByInterviewerId(@Param("interviewerId") UUID interviewerId);
 
 }
