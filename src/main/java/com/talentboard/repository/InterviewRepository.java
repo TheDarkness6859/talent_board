@@ -10,9 +10,9 @@ import java.util.UUID;
 
 public interface InterviewRepository extends JpaRepository<InterviewEntity, UUID> {
 
-    List<InterviewEntity> findByApplicationId(Long applicationId);
+    List<InterviewEntity> findByApplicationId(UUID applicationId);
 
     @Query("SELECT i FROM Interview i JOIN FETCH i.application a JOIN FETCH a.vacancy WHERE i.interviewer.id = :interviewerId")
-    List<InterviewEntity> findByInterviewerId(@Param("interviewerId") Long interviewerId);
+    List<InterviewEntity> findByInterviewerId(@Param("interviewerId") UUID interviewerId);
 
 }
