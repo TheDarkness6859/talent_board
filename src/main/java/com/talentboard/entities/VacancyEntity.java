@@ -46,7 +46,7 @@ public class VacancyEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "responsible_User_id", nullable = false)
-    private User responsibleUser;
+    private UserEntity responsibleUser;
 
     @PrePersist
     protected void onCreate() {

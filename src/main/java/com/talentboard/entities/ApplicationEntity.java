@@ -26,7 +26,7 @@ public class ApplicationEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id", nullable = false)
-    private User candidate;
+    private UserEntity candidate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacancy_id", nullable = false)
