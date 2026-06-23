@@ -11,9 +11,11 @@ import java.util.UUID;
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity, UUID> {
 
     @Query("SELECT a FROM Application a JOIN FETCH a.vacancy WHERE a.candidate.id = :candidateId")
-    List<ApplicationEntity> findByCandidateId(@Param("candidateId") Long candidateId);
+    List<ApplicationEntity> findByCandidateId(@Param("candidateId") UUID candidateId);
 
     @Query("SELECT a FROM Application a JOIN FETCH a.candidate JOIN FETCH a.vacancy")
     List<ApplicationEntity> findAllWithDetails();
+
+    boolean exitsByCandidateIdAndVacancyId (UUID userId, UUID vacancyId);
 
 }
