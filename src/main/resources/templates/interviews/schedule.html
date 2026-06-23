@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::section})}">
+<head>
+    <title>Schedule Interview</title>
+</head>
+<body>
+<section>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">Schedule Interview</h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/interviews/application/{applicationId}/schedule(applicationId=${applicationId})}" method="post">
+                        <div class="mb-3">
+                            <label for="interviewerId" class="form-label">Interviewer</label>
+                            <select class="form-select" id="interviewerId" name="interviewerId" required>
+                                <option value="">Select Interviewer</option>
+                                <option value="">-- Add interviewer selection logic --</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="interviewDate" class="form-label">Interview Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="interviewDate" name="interviewDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Interview Type</label>
+                            <select class="form-select" id="type" name="type" required>
+                                <option value="">Select Type</option>
+                                <option th:each="type : ${interviewTypes}" th:value="${type}" th:text="${type}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add any notes about this interview..."></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Schedule Interview</button>
+                            <a th:href="@{/applications/{id}(id=${applicationId})}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
